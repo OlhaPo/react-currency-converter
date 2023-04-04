@@ -3,11 +3,12 @@ import { Container, Grid, Typography } from "@mui/material";
 import CurrencyRow from "./components/CurrencyRow";
 import SelectCountry from "./components/SelectCountry";
 import SwitchCurrency from "./components/SwitchCurrency";
-import { useState } from "react";
+import { useContext } from "react";
+import { CurrencyContext } from "./context/CurrencyContext";
 
 function App() {
-  const [fromCurrency, setFromCurrency] = useState("");
-  const [toCurrency, setToCurrency] = useState("");
+  const { fromCurrency, setFromCurrency, toCurrency, setToCurrency } =
+    useContext(CurrencyContext);
 
   const containerStyle = {
     background: "#fcfefe",
