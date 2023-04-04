@@ -3,8 +3,12 @@ import { Container, Grid, Typography } from "@mui/material";
 import CurrencyRow from "./components/CurrencyRow";
 import SelectCountry from "./components/SelectCountry";
 import SwitchCurrency from "./components/SwitchCurrency";
+import { useState } from "react";
 
 function App() {
+  const [fromCurrency, setFromCurrency] = useState("");
+  const [toCurrency, setToCurrency] = useState("");
+
   const containerStyle = {
     background: "#fcfefe",
     marginTop: "50px",
@@ -23,9 +27,13 @@ function App() {
       </Typography>
       <Grid container mt={6} spacing={2}>
         <CurrencyRow />
-        <SelectCountry />
+        <SelectCountry
+          value={fromCurrency}
+          setValue={setFromCurrency}
+          label="From"
+        />
         <SwitchCurrency />
-        <SelectCountry />
+        <SelectCountry value={toCurrency} setValue={setToCurrency} label="To" />
       </Grid>
     </Container>
   );
