@@ -1,8 +1,16 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { Autocomplete, Grid, TextField } from "@mui/material";
 
 const SelectCountry = () => {
-  return <Grid item>One</Grid>;
+  return (
+    <Grid item xs={12} md={4}>
+      <Autocomplete
+        value="option1"
+        options={["option1", "option2"]}
+        renderInput={(params) => <TextField {...params} label="from" />}
+      />
+    </Grid>
+  );
 };
 
 export default SelectCountry;

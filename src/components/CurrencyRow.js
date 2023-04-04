@@ -3,7 +3,7 @@ import { Grid, TextField, InputAdornment } from "@mui/material";
 
 const CurrencyRow = () => {
   return (
-    <Grid item>
+    <Grid item xs={12}>
       <TextField
         fullWidth
         label="Amount"
