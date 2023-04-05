@@ -41,7 +41,7 @@ function App() {
           console.log(error);
         });
     }
-  }, [toCurrency, fromCurrency]);
+  }, [toCurrency, fromCurrency, codeFromCurrency, codeToCurrency]);
 
   const containerStyle = {
     background: "#fcfefe",
