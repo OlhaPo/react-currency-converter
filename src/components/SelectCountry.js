@@ -18,7 +18,6 @@ const SelectCountry = ({ value, setValue, label }) => {
   }
 
   const dataFilter = data.filter((item) => "currencies" in item);
-  console.log(dataFilter);
   const dataCountries = dataFilter.map((item) => {
     return `${item.flag} ${Object.keys(item.currencies)[0]} - ${
       item.name.common
@@ -28,12 +27,13 @@ const SelectCountry = ({ value, setValue, label }) => {
   return (
     <Grid item xs={12} md={4}>
       <Autocomplete
-        freeSolo
         value={value}
+        disableClearable
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
         options={dataCountries}
+        freeSolo
         renderInput={(params) => <TextField {...params} label={label} />}
       />
     </Grid>
