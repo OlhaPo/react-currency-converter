@@ -1,14 +1,47 @@
 import "./App.css";
-import { Container, Grid, Typography } from "@mui/material";
+import axios from "axios";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import CurrencyRow from "./components/CurrencyRow";
 import SelectCountry from "./components/SelectCountry";
 import SwitchCurrency from "./components/SwitchCurrency";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CurrencyContext } from "./context/CurrencyContext";
+import { useEffect } from "react";
 
 function App() {
-  const { fromCurrency, setFromCurrency, toCurrency, setToCurrency } =
-    useContext(CurrencyContext);
+  const {
+    fromCurrency,
+    setFromCurrency,
+    toCurrency,
+    setToCurrency,
+    firstAmount,
+  } = useContext(CurrencyContext);
+
+  const [rate, setRate] = useState(0);
+  const [hasError, setHasError] = useState(false);
+
+  const codeFromCurrency = parseCurrencyCode(fromCurrency);
+  const codeToCurrency = parseCurrencyCode(toCurrency);
+
+  useEffect(() => {
+    if (toCurrency && fromCurrency) {
+      axios("https://api.freecurrencyapi.com/v1/latest", {
+        params: {
+          apikey: "TDvFkhNzEY3HJLL4Dkyj3fJZTLZQDSyU34ssS29e",
+          base_currency: codeFromCurrency,
+          currencies: codeToCurrency,
+        },
+      })
+        .then((response) => {
+          setHasError(false);
+          setRate(response.data.data[codeToCurrency]);
+        })
+        .catch((error) => {
+          setHasError(true);
+          console.log(error);
+        });
+    }
+  }, [toCurrency, fromCurrency]);
 
   const containerStyle = {
     background: "#fcfefe",
@@ -36,8 +69,35 @@ function App() {
         <SwitchCurrency />
         <SelectCountry value={toCurrency} setValue={setToCurrency} label="To" />
       </Grid>
+      {firstAmount && fromCurrency && toCurrency && !hasError ? (
+        <Box mt={6} sx={{ textAlign: "center" }}>
+          <Typography variant="h6">
+            {firstAmount} {fromCurrency} ={" "}
+          </Typography>
+          <Typography variant="h6">
+            {Math.round(firstAmount * rate * 100) / 100} {toCurrency}
+          </Typography>
+        </Box>
+      ) : (
+        ""
+      )}
+      {hasError ? (
+        <Box>
+          <Typography variant="h6" sx={{ color: "red" }}>
+            No rate available for this currency
+          </Typography>
+        </Box>
+      ) : null}
     </Container>
   );
 }
 
 export default App;
+
+function parseCurrencyCode(val) {
+  if (val === null) {
+    return "";
+  } else {
+    return val.split(" ")[1];
+  }
+}

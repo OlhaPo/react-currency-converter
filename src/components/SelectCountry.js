@@ -27,13 +27,13 @@ const SelectCountry = ({ value, setValue, label }) => {
   return (
     <Grid item xs={12} md={4}>
       <Autocomplete
+        id="free-solo-demo"
+        freeSolo
         value={value}
-        disableClearable
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
         options={dataCountries}
-        freeSolo
         renderInput={(params) => <TextField {...params} label={label} />}
       />
     </Grid>
