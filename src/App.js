@@ -44,7 +44,6 @@ function App() {
   }, [toCurrency, fromCurrency, codeFromCurrency, codeToCurrency]);
 
   const containerStyle = {
-    background: "#fcfefe",
     marginTop: "50px",
     textAlign: "center",
     borderRadius: "8px",
@@ -52,6 +51,11 @@ function App() {
     padding: "32px 64px",
     boxShadow: "1px 5px 10px rgba(0, 0, 0, 0.3)",
     position: "relative",
+  };
+
+  const boxStyle = {
+    marginTop: "60px",
+    textAlign: "center",
   };
 
   return (
@@ -70,7 +74,7 @@ function App() {
         <SelectCountry value={toCurrency} setValue={setToCurrency} label="To" />
       </Grid>
       {firstAmount && fromCurrency && toCurrency && !hasError ? (
-        <Box mt={6} sx={{ textAlign: "center" }}>
+        <Box sx={boxStyle}>
           <Typography variant="h6">
             {firstAmount} {fromCurrency} ={" "}
           </Typography>
@@ -83,7 +87,7 @@ function App() {
       )}
       {hasError ? (
         <Box>
-          <Typography variant="h6" sx={{ color: "red" }}>
+          <Typography variant="h6" sx={boxStyle}>
             No rate available for this currency
           </Typography>
         </Box>
