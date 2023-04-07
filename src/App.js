@@ -66,6 +66,7 @@ function App() {
       <Grid container mt={6} spacing={2}>
         <CurrencyRow />
         <SelectCountry
+          sx={{ marginTop: "50px" }}
           value={fromCurrency}
           setValue={setFromCurrency}
           label="From"

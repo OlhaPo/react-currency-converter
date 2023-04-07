@@ -1,7 +1,7 @@
 To create this project I followed [this video tutorial](https://youtu.be/r8zwDzlNSsA).
 Some extra features were added: formatting converted currencies to 2 decimal places, handling case when the exhchange rate for some countries is not available.
 
-Currency converter was created using React, Material UI, freecurrencyapi for the conversion rates and restcountries for the list of countries.
+Currency converter was created using React, Material UI, freecurrency API to obtain conversion rates and restcountries API to get a list of countries.
 
 # Getting Started with Create React App
 
