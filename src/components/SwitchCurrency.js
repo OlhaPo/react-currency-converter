@@ -13,7 +13,7 @@ const SwitchCurrency = () => {
   };
 
   return (
-    <Grid item xs={12} md="auto">
+    <Grid item xs={12} md={2}>
       <Button
         onClick={handleSwitch}
         sx={{ borderRadius: "4px", height: "100%" }}

@@ -6,8 +6,9 @@ const CurrencyRow = () => {
   const { firstAmount, setFirstAmount } = useContext(CurrencyContext);
 
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} md={12}>
       <TextField
+        sx={{ marginBottom: "15px" }}
         value={firstAmount}
         onChange={(event) => setFirstAmount(event.target.value)}
         fullWidth
@@ -16,7 +17,6 @@ const CurrencyRow = () => {
           type: "number",
           startAdornment: <InputAdornment position="start">$</InputAdornment>,
         }}
-        helperText="Enter amount you want to convert"
       ></TextField>
     </Grid>
   );

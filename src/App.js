@@ -45,28 +45,31 @@ function App() {
 
   const containerStyle = {
     marginTop: "50px",
+    maxWidth: "500px",
     textAlign: "center",
     borderRadius: "8px",
-    minHeight: "320px",
-    padding: "32px 64px",
+    padding: "32px 40px 52px 52px",
     boxShadow: "1px 5px 10px rgba(0, 0, 0, 0.3)",
-    position: "relative",
+    "@media (max-width:576px)": {
+      borderRadius: "none",
+      boxShadow: "none",
+      maxWidth: "100%",
+      padding: "20px",
+    },
   };
 
   const boxStyle = {
     marginTop: "60px",
-    textAlign: "center",
   };
 
   return (
-    <Container maxWidth="xs" sx={containerStyle}>
-      <Typography variant="h4" mt={6} sx={{ color: "#1976D2" }}>
-        Currency Conventer
+    <Container sx={containerStyle}>
+      <Typography variant="h4" mt={2} sx={{ color: "#1976D2" }}>
+        Currency Converter
       </Typography>
-      <Grid container mt={6} spacing={2}>
+      <Grid container mt={3} spacing={2}>
         <CurrencyRow />
         <SelectCountry
-          sx={{ marginTop: "50px" }}
           value={fromCurrency}
           setValue={setFromCurrency}
           label="From"
