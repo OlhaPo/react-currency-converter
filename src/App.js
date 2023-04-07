@@ -64,7 +64,16 @@ function App() {
 
   return (
     <Container sx={containerStyle}>
-      <Typography variant="h4" mt={2} sx={{ color: "#1976D2" }}>
+      <Typography
+        variant="h4"
+        mt={2}
+        sx={{
+          color: "#1976D2",
+          "@media (max-width:576px)": {
+            fontSize: "25px",
+          },
+        }}
+      >
         Currency Converter
       </Typography>
       <Grid container mt={3} spacing={2}>
