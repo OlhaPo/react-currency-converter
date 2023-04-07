@@ -3,19 +3,7 @@ import { Autocomplete, Skeleton, Grid, TextField } from "@mui/material";
 import useAxios from "../hooks/useAxios";
 
 const SelectCountry = ({ value, setValue, label }) => {
-  const [data, loaded, error] = useAxios("https://restcountries.com/v3.1/all");
-
-  if (loaded) {
-    return (
-      <Grid item xs={12} md={4}>
-        <Skeleton rounded height={60} />
-      </Grid>
-    );
-  }
-
-  if (error) {
-    return "Something went wrong!";
-  }
+  const [data, error] = useAxios("https://restcountries.com/v3.1/all");
 
   const dataFilter = data.filter((item) => "currencies" in item);
   const dataCountries = dataFilter.map((item) => {
