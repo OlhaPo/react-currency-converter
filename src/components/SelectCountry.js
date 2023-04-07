@@ -1,9 +1,9 @@
 import React from "react";
-import { Autocomplete, Skeleton, Grid, TextField } from "@mui/material";
+import { Autocomplete, Grid, TextField } from "@mui/material";
 import useAxios from "../hooks/useAxios";
 
 const SelectCountry = ({ value, setValue, label }) => {
-  const [data, error] = useAxios("https://restcountries.com/v3.1/all");
+  const [data] = useAxios("https://restcountries.com/v3.1/all");
 
   const dataFilter = data.filter((item) => "currencies" in item);
   const dataCountries = dataFilter.map((item) => {
