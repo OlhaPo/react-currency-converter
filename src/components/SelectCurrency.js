@@ -2,7 +2,7 @@ import React from "react";
 import { Autocomplete, Grid, TextField } from "@mui/material";
 import useAxios from "../hooks/useAxios";
 
-const SelectCountry = ({ value, setValue, label }) => {
+const SelectCurrency = ({ value, setValue, label }) => {
   const [data] = useAxios("https://restcountries.com/v3.1/all");
 
   const dataFilter = data.filter((item) => "currencies" in item);
@@ -27,4 +27,4 @@ const SelectCountry = ({ value, setValue, label }) => {
   );
 };
 
-export default SelectCountry;
+export default SelectCurrency;

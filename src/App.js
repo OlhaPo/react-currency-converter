@@ -2,7 +2,7 @@ import "./App.css";
 import axios from "axios";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import CurrencyRow from "./components/CurrencyRow";
-import SelectCountry from "./components/SelectCountry";
+import SelectCountry from "./components/SelectCurrency";
 import SwitchCurrency from "./components/SwitchCurrency";
 import { useContext, useState } from "react";
 import { CurrencyContext } from "./context/CurrencyContext";
