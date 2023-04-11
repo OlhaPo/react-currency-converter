@@ -92,13 +92,16 @@ function App() {
           currencies={currencies}
         />
       </Grid>
-      <Box sx={boxStyle}>
-        <Typography sx={{ fontSize: "22px" }}>
-          {firstAmount} {fromCurrency.code} = {(firstAmount * rate).toFixed(2)}{" "}
-          {toCurrency.code}
-        </Typography>
-      </Box>
-      ) : ( "" )}
+      {firstAmount && fromCurrency && toCurrency && !hasError ? (
+        <Box sx={boxStyle}>
+          <Typography sx={{ fontSize: "22px" }}>
+            {firstAmount} {fromCurrency.code} ={" "}
+            {(firstAmount * rate).toFixed(2)} {toCurrency.code}
+          </Typography>
+        </Box>
+      ) : (
+        ""
+      )}
       {hasError ? (
         <Box>
           <Typography variant="h6" sx={boxStyle}>
