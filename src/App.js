@@ -98,6 +98,14 @@ function App() {
           {toCurrency.code}
         </Typography>
       </Box>
+      ) : ( "" )}
+      {hasError ? (
+        <Box>
+          <Typography variant="h6" sx={boxStyle}>
+            Something went wrong. Try again!
+          </Typography>
+        </Box>
+      ) : null}
     </Container>
   );
 }
