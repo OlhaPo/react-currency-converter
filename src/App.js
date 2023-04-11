@@ -18,7 +18,6 @@ function App() {
   } = useContext(CurrencyContext);
 
   const [rate, setRate] = useState(0);
-  const [hasError, setHasError] = useState(false);
   const [currencies, setCurrencies] = useState([]);
 
   useEffect(() => {
@@ -92,23 +91,13 @@ function App() {
           currencies={currencies}
         />
       </Grid>
-      {firstAmount && fromCurrency && toCurrency && !hasError ? (
-        <Box sx={boxStyle}>
-          <Typography sx={{ fontSize: "22px" }}>
-            {firstAmount} {fromCurrency.code} ={" "}
-            {(firstAmount * rate).toFixed(2)} {toCurrency.code}
-          </Typography>
-        </Box>
-      ) : (
-        ""
-      )}
-      {hasError ? (
-        <Box>
-          <Typography variant="h6" sx={boxStyle}>
-            No rate available for this currency
-          </Typography>
-        </Box>
-      ) : null}
+
+      <Box sx={boxStyle}>
+        <Typography sx={{ fontSize: "22px" }}>
+          {firstAmount} {fromCurrency.code} = {(firstAmount * rate).toFixed(2)}{" "}
+          {toCurrency.code}
+        </Typography>
+      </Box>
     </Container>
   );
 }
