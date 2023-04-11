@@ -18,6 +18,7 @@ function App() {
   } = useContext(CurrencyContext);
 
   const [rate, setRate] = useState(0);
+  const [hasError, setHasError] = useState(false);
   const [currencies, setCurrencies] = useState([]);
 
   useEffect(() => {
@@ -91,7 +92,6 @@ function App() {
           currencies={currencies}
         />
       </Grid>
-
       <Box sx={boxStyle}>
         <Typography sx={{ fontSize: "22px" }}>
           {firstAmount} {fromCurrency.code} = {(firstAmount * rate).toFixed(2)}{" "}
