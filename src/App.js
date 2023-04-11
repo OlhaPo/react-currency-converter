@@ -1,12 +1,12 @@
 import "./App.css";
-import axios from "axios";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import CurrencyRow from "./components/CurrencyRow";
-import SelectCountry from "./components/SelectCurrency";
 import SwitchCurrency from "./components/SwitchCurrency";
 import { useContext, useState } from "react";
 import { CurrencyContext } from "./context/CurrencyContext";
 import { useEffect } from "react";
+import SelectCurrency from "./components/SelectCurrency";
+import { getCurrencyList, getRate } from "./currency_api";
 
 function App() {
   const {
@@ -19,29 +19,29 @@ function App() {
 
   const [rate, setRate] = useState(0);
   const [hasError, setHasError] = useState(false);
+  const [currencies, setCurrencies] = useState([]);
 
-  const codeFromCurrency = parseCurrencyCode(fromCurrency);
-  const codeToCurrency = parseCurrencyCode(toCurrency);
+  useEffect(() => {
+    const fetchList = async () => {
+      const c = await getCurrencyList();
+      setCurrencies(c);
+    };
+    fetchList();
+  }, []);
 
   useEffect(() => {
     if (toCurrency && fromCurrency) {
-      axios("https://api.freecurrencyapi.com/v1/latest", {
-        params: {
-          apikey: "TDvFkhNzEY3HJLL4Dkyj3fJZTLZQDSyU34ssS29e",
-          base_currency: codeFromCurrency,
-          currencies: codeToCurrency,
-        },
-      })
-        .then((response) => {
+      getRate(fromCurrency.code, toCurrency.code)
+        .then((r) => {
           setHasError(false);
-          setRate(response.data.data[codeToCurrency]);
+          setRate(r);
         })
-        .catch((error) => {
+        .catch((errorMsg) => {
           setHasError(true);
-          console.log(error);
+          console.error(errorMsg);
         });
     }
-  }, [toCurrency, fromCurrency, codeFromCurrency, codeToCurrency]);
+  }, [toCurrency, fromCurrency]);
 
   const containerStyle = {
     marginTop: "50px",
@@ -78,21 +78,25 @@ function App() {
       </Typography>
       <Grid container mt={3} spacing={2}>
         <CurrencyRow />
-        <SelectCountry
+        <SelectCurrency
           value={fromCurrency}
           setValue={setFromCurrency}
           label="From"
+          currencies={currencies}
         />
         <SwitchCurrency />
-        <SelectCountry value={toCurrency} setValue={setToCurrency} label="To" />
+        <SelectCurrency
+          value={toCurrency}
+          setValue={setToCurrency}
+          label="To"
+          currencies={currencies}
+        />
       </Grid>
       {firstAmount && fromCurrency && toCurrency && !hasError ? (
         <Box sx={boxStyle}>
-          <Typography variant="h6">
-            {firstAmount} {fromCurrency} ={" "}
-          </Typography>
-          <Typography variant="h6">
-            {Math.round(firstAmount * rate * 100) / 100} {toCurrency}
+          <Typography sx={{ fontSize: "22px" }}>
+            {firstAmount} {fromCurrency.code} ={" "}
+            {(firstAmount * rate).toFixed(2)} {toCurrency.code}
           </Typography>
         </Box>
       ) : (
@@ -110,11 +114,3 @@ function App() {
 }
 
 export default App;
-
-function parseCurrencyCode(val) {
-  if (val === null) {
-    return "";
-  } else {
-    return val.split(" ")[1];
-  }
-}

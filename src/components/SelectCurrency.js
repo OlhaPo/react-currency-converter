@@ -1,17 +1,7 @@
 import React from "react";
 import { Autocomplete, Grid, TextField } from "@mui/material";
-import useAxios from "../hooks/useAxios";
 
-const SelectCurrency = ({ value, setValue, label }) => {
-  const [data] = useAxios("https://restcountries.com/v3.1/all");
-
-  const dataFilter = data.filter((item) => "currencies" in item);
-  const dataCountries = dataFilter.map((item) => {
-    return `${item.flag} ${Object.keys(item.currencies)[0]} - ${
-      item.name.common
-    }`;
-  });
-
+const SelectCurrency = ({ value, setValue, label, currencies }) => {
   return (
     <Grid item xs={12} md={5}>
       <Autocomplete
@@ -20,7 +10,8 @@ const SelectCurrency = ({ value, setValue, label }) => {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
-        options={dataCountries}
+        options={currencies ?? []}
+        getOptionLabel={(item) => (item ? `${item.code} - ${item.name}` : "")}
         renderInput={(params) => <TextField {...params} label={label} />}
       />
     </Grid>
